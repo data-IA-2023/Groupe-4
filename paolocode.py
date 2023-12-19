@@ -15,7 +15,7 @@ print(f"La population faux est: {population}")
 
 #--> Pour trouver les annomalies
 for i in range(len(df["Flag"])):
-    if pd.isna(df["Flag"][i]) == False: #si la flag est pas vide
+    if df["Flag"][i]: #si la flag est pas vide
         anomalie = df["Country"][i]
 #on reconte la population
 population_vraie = 0
