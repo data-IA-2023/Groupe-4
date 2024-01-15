@@ -11,15 +11,14 @@ Donnez le résultat de votre calcul pour l'année 2013.
 
 """
 # Lecture du CSV
-csvfile = "FAOSTAT_2013_population.csv"
-df_population = pd.read_csv(csvfile)
+df_population = pd.read_csv("FAO_projet/FAOSTAT_2013_population.csv")
 
 dimension = df_population.columns
 nb_lignes, nb_colonnes = df_population.shape
-print("\nLes données sont classées par :\n", dimension)
-print ("\nNombre de lignes :", nb_lignes)
-print ("Nombre de colonnes :", nb_colonnes)
-print(df_population.dtypes)
+#print("\nLes données sont classées par :\n", dimension)
+#print ("\nNombre de lignes :", nb_lignes)
+#print ("Nombre de colonnes :", nb_colonnes)
+#print(df_population.dtypes)
 
 #population de chaque pays
 df_population['Value']
@@ -31,9 +30,9 @@ popSum.sum()*1000
 
 #on recherche les répétitions du string 'China'
 country = df_population['Country']
-for i in range(len(country)):
-    if 'China' in country[i]:
-        print(country[i])
+#for i in range(len(country)):
+#    if 'China' in country[i]:
+#        print(country[i])
 
 #recherche de l'anomalie
 df_population.iloc[-1,[11,12,13]]
@@ -43,11 +42,11 @@ result = 0
 for i in range(len(country)):
     if 'China' in country[i] and country[i] != 'China':
        result = result + popSum[i]
-print(result)
+#print(result)
 
 #comparaison entre le résultat et l'anomalie
-if result == popSum.iloc[-1]:
-    print("il y a bien un doublon")
+#if result == popSum.iloc[-1]:
+#    print("il y a bien un doublon")
 
 #paolo
 for i in range(len(df_population["Flag"])):
@@ -69,7 +68,7 @@ Illustrez cette équation avec l'exemple du blé en France.
 
 """
 #lecture du CSV
-csvfile2 = "FAOSTAT_2013_cereal.csv"
+csvfile2 = "FAO_projet/FAOSTAT_2013_cereal.csv"
 dfc = pd.read_csv(csvfile2)
 dfcf = dfc.loc[dfc['Produit'].str.contains('Blé')].loc[dfc['Symbole'].str.contains('S')]
 dfcf
@@ -220,9 +219,9 @@ Pour cette étape vous avez besoin de constituer une seule et même table à par
 
 """
 # Lecture du CSV
-dfvegetal = pd.read_csv("FAOSTAT_2013_vegetal.csv")
+dfvegetal = pd.read_csv("FAO_projet/FAOSTAT_2013_vegetal.csv")
 dfvegetal.insert(14,'dfCode','Vegetal')
-dfanimal  = pd.read_csv("FAOSTAT_2013_animal.csv")
+dfanimal = pd.read_csv("FAO_projet/FAOSTAT_2013_animal.csv")
 dfanimal.insert(14,'dfCode','Animal')
 
 # Input demande pays voulu
@@ -376,7 +375,7 @@ Combien d'humains pourraient être nourris si toute la disponibilité alimentair
 Donnez les résultats en termes de calories, puis de protéines, et exprimez ensuite ces 2 résultats en pourcentage de la population mondiale.
 
 """
-dfpivot = pd.pivot_table(dfvege,index=['Code Pays'], columns=(contatenate) ['Code '])
+""" dfpivot = pd.pivot_table(dfvege,index=['Code Pays'], columns=(concatenate) ['Code '])
 
 dfq8 = dfvegetal[dfvegetal["Code Élément"].isin([645,5521,5123])]
 
@@ -388,7 +387,7 @@ print(Resultq8G)
 PercentMondeQ8Kcal = (Resultq8Kcal/somme)*100
 PercentMondeQ8G    = (Resultq8G/somme)*100
 print(PercentMondeQ8Kcal)
-print(PercentMondeQ8G)
+print(PercentMondeQ8G) """
 
 """
 QUESTION 9: Potentiel alimentaire de la dispo mondiale
@@ -398,7 +397,7 @@ Donnez les résultats en termes de calories, puis de protéines, et exprimez ens
 
 """
 
-dfvege_dispoAlimTotal = dfvege.loc[dfvege['Élément'] == "Disponibilité alimentaire en quantité (kg/personne/an)"]
+""" dfvege_dispoAlimTotal = dfvege.loc[dfvege['Élément'] == "Disponibilité alimentaire en quantité (kg/personne/an)"]
 dfvege_dispoAlimTotalSum = dfvege_dispoAlimTotal["Valeur"].sum()
 NbHPNTotalKcal = dfvege_dispoAlimTotalSum / dfvege_dispoAlimKcalSum
 NbHPNTotalG = dfvege_dispoAlimTotalSum / dfvege_dispoAlimGSum
@@ -407,7 +406,7 @@ print(NbHPNTotalG)
 PercentMondeQ9Kcal = (NbHPNTotalKcal/somme)*100
 PercentMondeQ9G    = (NbHPNTotalG/somme)*100
 print(PercentMondeQ9Kcal)
-print(PercentMondeQ9G)
+print(PercentMondeQ9G) """
 
 """
 QUESTION 10: Proportion de la sous-nutrition mondiale
@@ -417,8 +416,8 @@ Quelle proportion de la population mondiale est considérée comme étant en sou
 
 """
 
-df_pop = pd.read_csv("FAOSTAT_2013_population.csv")
-df_sous_alim = pd.read_csv("FAOSTAT_2013_sous_alimentation.csv")
+df_pop = pd.read_csv("FAO_projet/FAOSTAT_2013_population.csv")
+df_sous_alim = pd.read_csv("FAO_projet/FAOSTAT_2013_sous_alimentation.csv")
 prop_sous_alim = df_sous_alim["Valeur"].sum()*1000000 / NewSumPopMondiale
 print("La proportion des personnes sous alimentées est de:", prop_sous_alim)
 df_sous_alim
@@ -431,13 +430,11 @@ En ne prenant en compte que les céréales destinées à l'alimentation (humaine
 
 """
 
-df_cereales = pd.read_csv("FAOSTAT_2013_cereal.csv")
+df_cereales = pd.read_csv("FAO_projet/FAOSTAT_2013_cereal.csv")
 df_cereales_animaux = df_cereales[df_cereales["Code Élément"].isin([5521])] 
 df_cereales_total = df_cereales[df_cereales["Code Élément"].isin([5301])] 
 proportion_animaux = df_cereales_animaux["Valeur"].sum() /df_cereales_total["Valeur"].sum()
-df = df_cereales.groupby("Produit").mean()
-print(df["Code Produit"])
-print("La proportion des aliments pour les animaux est de:",proportion_animaux)
+print("La proportion des aliments pour les animaux est de:", proportion_animaux)
 
 """
 QUESTION 12: Sous-nutrition
@@ -459,7 +456,7 @@ b = df_sous_alim["Code zone"].unique()
 df_sous_alim = df_sous_alim[df_sous_alim["Code zone"].isin(a)] #nettoyage de base
 df_sous_alim = df_sous_alim[df_sous_alim["Symbole"] == "F"] #on prend que les pays on il y a de malnutrition
 pays_malnutri = df_sous_alim["Zone"].unique()
-dftotal = df_animal.merge(df_vegetal)
+dftotal = dfanimal.merge(dfvegetal)
 
 """
 QUESTION 13: USA

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-csvfile_population = "FAOSTAT_2013_population.csv"
+csvfile_population = "./FAOSTAT_2013_population.csv"
 csvfile_cereal = "FAOSTAT_2013_cereal.csv"
 df_population = pd.read_csv(csvfile_population)
 df_cereal=pd.read_csv(csvfile_cereal)
